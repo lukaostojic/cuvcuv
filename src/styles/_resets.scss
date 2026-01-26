@@ -1,0 +1,28 @@
+@use './variables' as v;
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+ul li,
+ol li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: v.$text-color-dark;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+	font-family: "Poppins", sans-serif;
+}

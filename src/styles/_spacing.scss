@@ -1,0 +1,83 @@
+@use "sass:map";
+
+/* =========================================
+   Breakpoints (mobile-first)
+========================================= */
+
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+);
+
+/* =========================================
+   Spacing directions
+========================================= */
+
+$spacing-directions: (
+  mt: (margin-top),
+  mr: (margin-right),
+  mb: (margin-bottom),
+  ml: (margin-left),
+  mx: (margin-left, margin-right),
+  my: (margin-top, margin-bottom),
+
+  pt: (padding-top),
+  pr: (padding-right),
+  pb: (padding-bottom),
+  pl: (padding-left),
+  px: (padding-left, padding-right),
+  py: (padding-top, padding-bottom)
+);
+
+/* =========================================
+   Spacing scales
+========================================= */
+
+/* Mobile (default) */
+$spacing-scale-mobile: (
+  xs: 0.4rem,
+  sm: 0.8rem,
+  md: 1.2rem,
+  lg: 1.8rem,
+  xl: 2.2rem
+);
+
+/* Desktop override */
+$spacing-scale-desktop: (
+  xs: 0.6rem,
+  sm: 1.2rem,
+  md: 1.6rem,
+  lg: 2.4rem,
+  xl: 3.2rem
+);
+
+/* =========================================
+   Spacing generator mixin
+========================================= */
+
+@mixin generate-spacing($spacing-scale) {
+  @each $size, $value in $spacing-scale {
+    @each $short, $properties in $spacing-directions {
+      .#{$short}-#{$size} {
+        @each $property in $properties {
+          #{$property}: $value;
+        }
+      }
+    }
+  }
+}
+
+/* =========================================
+   Generate utilities
+========================================= */
+
+/* Mobile-first (applies to all screens) */
+@include generate-spacing($spacing-scale-mobile);
+
+/* Desktop override */
+@media (min-width: map.get($breakpoints, lg)) {
+  @include generate-spacing($spacing-scale-desktop);
+}
+
