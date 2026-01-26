@@ -21,7 +21,15 @@
 			<li class="mb-md"><RouterLink to="/contact">Contacts</RouterLink></li>
 		</ul>
 	</nav>
-	<header class="header p-relative"></header>
+	<header class="header d-flex justify-center align-center full-width full-height p-relative">
+		<div class="header__content d-flex-column justify-center align-center">
+			<h1>Ana Ostojic</h1>
+			<p>Text about Ana the pianist</p>
+		</div>
+		<div class="header__image">
+			<img src="../../assets/IMG_2474.jpg" alt="">
+		</div>
+	</header>
 </template>
 
 <script lang="ts">

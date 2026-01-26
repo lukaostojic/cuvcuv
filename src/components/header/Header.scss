@@ -1,3 +1,4 @@
+@use "sass:map";
 @use '@/styles/spacing.scss' as s;
 @use '@/styles/variables.scss' as v;
 
@@ -51,10 +52,14 @@ $mobile-navigation-height: 60px;
           translateX(6px);
       }
     }
+
+    @media (min-width: map.get(s.$breakpoints, lg)) {
+      display: none;
+    }
   }
 
   &__list {
-    background-color: v.$primary-color-40;
+    background-color: #fff;
     opacity: 0;
     z-index: 8;
     transform: translateX(-100%);
@@ -80,6 +85,33 @@ $mobile-navigation-height: 60px;
         transform: translateX(0);
       }
     }
+
+    @media (min-width: map.get(s.$breakpoints, lg)) {
+      display: flex;
+      align-items: center;
+      gap: map.get(s.$spacing-scale-desktop, lg);
+      height: $mobile-navigation-height;
+      opacity: 1;
+      transform: translateX(0);
+
+      li {
+        margin-bottom: 0;
+        transform: translateX(0);
+
+        a {
+          color: v.$text-color-dark;
+        }
+      }
+    }
+
+    @media (min-width: map.get(s.$breakpoints, xl)) {
+      background-color: transparent;
+    }
+  }
+
+  @media (min-width: map.get(s.$breakpoints, lg)) {
+    position: absolute;
+    background-color: transparent;
   }
 }
 
@@ -91,21 +123,57 @@ $mobile-navigation-height: 60px;
   background-position: center;
   background-attachment: fixed;
 
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0 0 0 / 40%);
+  &__content {
+    position: relative;
+    color: v.$text-color-light;
+    z-index: 8; 
+  }
+
+  &__image {
+    display: none;
+  }
+
+  @media (min-width: map.get(s.$breakpoints, lg)) {
+    height: 100vh;
+  }
+
+  @media (min-width: map.get(s.$breakpoints, xl)) {
+    background-image: none;
+
+    &__content,
+    &__image {
+      width: 50%;
+      height: 100vh;
+    }
+
+    &__content {
+      color: v.$text-color-dark;
+    }
+
+    &__image {
+      display: flex;
+
+      img {
+        object-fit: cover;
+        height: 100vh;
+        width: auto;
+      }
+    }
   }
 }
 
 .router-link-active {
-  color: v.$text-color-dark !important;
+  color: v.$primary-color-10 !important;
 
   &:before {
     content: '- ';
+  }
+
+  @media (min-width: map.get(s.$breakpoints, lg)) {
+    color: v.$text-color-dark !important;
+
+    &:before {
+      content: '';
+    }
   }
 }
