@@ -2,78 +2,73 @@
 @use '@/styles/spacing.scss' as s;
 @use '@/styles/variables.scss' as v;
 
-$mobile-navigation-height: 60px;
+// ---- Config ----
+$mobile-nav-h: 60px;
+$transition-speed: 0.15s ease-in-out;
+$lg-breakpoint: map.get(s.$breakpoints, lg);
+$xl-breakpoint: map.get(s.$breakpoints, xl);
+$home-bg-image: url('../../assets/home-3.jpg');
 
+// ---- Navigation ----
 .navigation {
-  position: sticky;
+  position: fixed;
   top: 0;
-  height: 60px;
-  background-color: v.$primary-color-40;
   z-index: 20;
+  height: $mobile-nav-h;
+  background-color: v.$white;
+
+  @media (min-width: $lg-breakpoint) {
+    background-color: transparent;
+  }
 
   &__hamburger {
-    gap: 6px;
     position: absolute;
     right: 6px;
     top: 10px;
+    z-index: 10;
     width: 40px;
     height: 40px;
-    z-index: 10;
-    transition: all 0.15s ease-in-out;
+    gap: 6px;
+    transition: all $transition-speed;
 
     span {
       display: block;
       width: 26px;
       height: 3px;
-      background-color: v.$text-color-light;
+      background-color: v.$text-color-dark;
       border-radius: 2px;
-      transition: all 0.15s ease-in-out;
-
+      transition: all $transition-speed;
     }
 
     &.active {
       transform: translateX(7px);
-
-      span:nth-child(1) {
-        transform:
-          rotate(45deg) 
-          translateY(6px) 
-          translateX(6px);
-      }
-
-      span:nth-child(2) {
-        opacity: 0;
-      }
-
-      span:nth-child(3) {
-        transform: 
-          rotate(-45deg)
-          translateY(-7px) 
-          translateX(6px);
-      }
+      span:nth-child(1) { transform: rotate(45deg) translateY(6px) translateX(6px); }
+      span:nth-child(2) { opacity: 0; }
+      span:nth-child(3) { transform: rotate(-45deg) translateY(-7px) translateX(6px); }
     }
 
-    @media (min-width: map.get(s.$breakpoints, lg)) {
+    @media (min-width: $lg-breakpoint) {
       display: none;
     }
   }
 
   &__list {
-    background-color: #fff;
-    opacity: 0;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    background-color: v.$white;
     z-index: 8;
+    opacity: 0;
     transform: translateX(-100%);
-    transition:
-      transform 0.15s ease-in-out, 
-      opacity 0.35s ease-in-out;
+    transition: transform $transition-speed, opacity 0.35s ease-in-out;
 
     li {
       transform: translateX(-40px);
       transition: all 0.35s 0.15s;
 
-      a {
-        color: v.$text-color-light;
-        font-weight: 600;
+      a { 
+        color: v.$text-color-dark; font-weight: 600; 
       }
     }
 
@@ -81,64 +76,134 @@ $mobile-navigation-height: 60px;
       opacity: 1;
       transform: translateX(0);
 
-      li {
-        transform: translateX(0);
+      li { 
+        transform: translateX(0); 
       }
     }
 
-    @media (min-width: map.get(s.$breakpoints, lg)) {
+    @media (min-width: $lg-breakpoint) {
       display: flex;
+      flex-direction: row;
       align-items: center;
+      justify-content: flex-start;
+      height: $mobile-nav-h;
       gap: map.get(s.$spacing-scale-desktop, lg);
-      height: $mobile-navigation-height;
+      background-color: v.$white;
       opacity: 1;
       transform: translateX(0);
 
       li {
         margin-bottom: 0;
         transform: translateX(0);
+      }
+    }
 
-        a {
-          color: v.$text-color-dark;
+    @media (min-width: $xl-breakpoint) {
+      background-color: transparent;
+    }
+  }
+}
+
+// ---- Header ----
+.header {
+  height: 100vh;
+  background: $home-bg-image;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &__content {
+    position: relative;
+    background-color: rgba(14, 14, 14, 0.5);
+    z-index: 8;
+    color: v.$text-color-light;
+    opacity: 0;
+    transform: translateY(10px) scale(0.75);
+    transition: transform 0.25s ease-in-out, opacity 0.5s ease-in-out;
+
+    &.show-content {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .top-section {
+      position: relative;
+      height: 30vh;
+
+      h1 {
+        font-size: 4rem;
+      }
+
+      @media (min-width: $xl-breakpoint) {
+        h1, p {
+          z-index: 2;
+          background-color: v.$white;
+        }
+
+        &:after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: -20px;
+          height: 0;
+          border-right: 2px solid #f0f0f0;
+          transition: all 0.25s ease-in-out;
+        }
+
+        &.draw-line {
+          &:after {
+            height: 100%;
+          }
         }
       }
     }
 
-    @media (min-width: map.get(s.$breakpoints, xl)) {
-      background-color: transparent;
+    .upcoming-event {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all $transition-speed;
+
+      &.upcoming-event-visible {
+        opacity: 1;
+        transform: translateY(10);
+      }
     }
-  }
 
-  @media (min-width: map.get(s.$breakpoints, lg)) {
-    position: absolute;
-    background-color: transparent;
-  }
-}
+    .contact-me-button {
+      z-index: 2;
 
-.header {
-  height: calc(100vh - $mobile-navigation-height);
-  background-image: url('../../assets/IMG_2474.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
+      &__inner {
+        background-color: v.$primary-color-40;
+        color: v.$text-color-dark;
+        border-radius: 4px;
+        font-size: 1.9rem;
+        font-weight: 600;
+        transition: all $transition-speed;
 
-  &__content {
-    position: relative;
-    color: v.$text-color-light;
-    z-index: 8; 
+        &:hover {
+          background-color: v.$text-color-dark;
+          color: v.$text-color-light;
+        }
+      }
+
+      @media (min-width: $xl-breakpoint) {
+        background-color: v.$white
+      }
+    }
+
+    @media(min-width: $xl-breakpoint) {
+      background-color: transparent;
+      padding: 0
+    }
   }
 
   &__image {
     display: none;
   }
 
-  @media (min-width: map.get(s.$breakpoints, lg)) {
-    height: 100vh;
-  }
-
-  @media (min-width: map.get(s.$breakpoints, xl)) {
-    background-image: none;
+  @media (min-width: $xl-breakpoint) {
+    display: flex;
+    background: none;
 
     &__content,
     &__image {
@@ -147,33 +212,41 @@ $mobile-navigation-height: 60px;
     }
 
     &__content {
-      color: v.$text-color-dark;
+      color: v.$text-color-dark; 
     }
-
+    
     &__image {
-      display: flex;
+      display: flex; 
+      position: relative;
 
-      img {
-        object-fit: cover;
+      &:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
         height: 100vh;
-        width: auto;
+        background-image: $home-bg-image;
+        background-attachment: fixed;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 100%;
       }
     }
   }
 }
 
-.router-link-active {
-  color: v.$primary-color-10 !important;
+// ---- Global/Router Links ----
+.router-link-active:not(.contact-me-button__inner) {
+  color: v.$primary-color-40 !important;
 
   &:before {
-    content: '- ';
+    content: '- '; 
   }
 
-  @media (min-width: map.get(s.$breakpoints, lg)) {
-    color: v.$text-color-dark !important;
-
-    &:before {
-      content: '';
+  @media (min-width: $lg-breakpoint) {
+    &:before { 
+      content: ''; 
     }
   }
 }

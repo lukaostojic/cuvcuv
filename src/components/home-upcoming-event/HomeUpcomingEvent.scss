@@ -1,0 +1,36 @@
+@use "sass:map";
+@use '@/styles/spacing.scss' as s;
+@use '@/styles/variables.scss' as v;
+
+$lg-breakpoint: map.get(s.$breakpoints, lg);
+$xl-breakpoint: map.get(s.$breakpoints, xl);
+
+.event-short {
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    font-style: italic;
+  }
+
+  .see-all-button {
+    border: 2px solid v.$text-color-light;
+    color: v.$text-color-light;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1.7rem;
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+      background-color: v.$text-color-dark;
+      color: v.$text-color-light;
+    }
+
+    @media (min-width: $xl-breakpoint) {
+      border: 2px solid v.$text-color-dark;
+      color: v.$text-color-dark;
+    }
+  }
+}
+

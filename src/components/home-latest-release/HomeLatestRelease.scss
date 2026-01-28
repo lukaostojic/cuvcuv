@@ -1,0 +1,28 @@
+@use "sass:map";
+@use '@/styles/spacing.scss' as s;
+@use '@/styles/variables.scss' as v;
+
+.release-short {
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    font-style: italic;
+  }
+
+  .see-all-button {
+    width: 185px;
+    border: 2px solid v.$text-color-dark;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1.7rem;
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+      background-color: v.$text-color-dark;
+      color: v.$text-color-light;
+    }
+  }
+}
+
