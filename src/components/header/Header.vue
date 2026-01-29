@@ -25,7 +25,7 @@
 		<div :class="{ 'show-content': isContentLoaded }" class="header__content d-flex-column justify-center align-center px-md py-md">
 			<div :class="{ 'draw-line': isLineVisible }" class="top-section d-flex-column justify-space-between align-center">
 				<h1>Ana Ostojic</h1>
-				<p class="pb-sm">Contemporary pianist & performer</p>
+				<p class="pb-sm">Contemporary pianist & Cuv</p>
 				<div class="contact-me-button py-lg mt-md">
 					<RouterLink class="contact-me-button__inner py-sm px-lg" to="/contact">Book Me</RouterLink>
 				</div>
@@ -56,15 +56,15 @@ export default defineComponent({
 		onMounted(() => {
 			setTimeout(() => {
 				isContentLoaded.value = true
-			}, 250);
-
-			setTimeout(() => {
-				isLineVisible.value = true
 			}, 500);
 
 			setTimeout(() => {
-				isUpcomingEventVisible.value = true
+				isLineVisible.value = true
 			}, 750);
+
+			setTimeout(() => {
+				isUpcomingEventVisible.value = true
+			}, 1000);
 		})
 
 		const toggleNavigation = () => {

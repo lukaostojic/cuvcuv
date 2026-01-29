@@ -4,7 +4,6 @@
 
 // ---- Config ----
 $mobile-nav-h: 60px;
-$transition-speed: 0.15s ease-in-out;
 $lg-breakpoint: map.get(s.$breakpoints, lg);
 $xl-breakpoint: map.get(s.$breakpoints, xl);
 $home-bg-image: url('../../assets/home-3.jpg');
@@ -29,7 +28,7 @@ $home-bg-image: url('../../assets/home-3.jpg');
     width: 40px;
     height: 40px;
     gap: 6px;
-    transition: all $transition-speed;
+    transition: all v.$speed5;
 
     span {
       display: block;
@@ -37,7 +36,7 @@ $home-bg-image: url('../../assets/home-3.jpg');
       height: 3px;
       background-color: v.$text-color-dark;
       border-radius: 2px;
-      transition: all $transition-speed;
+      transition: all v.$speed5;
     }
 
     &.active {
@@ -53,19 +52,15 @@ $home-bg-image: url('../../assets/home-3.jpg');
   }
 
   &__list {
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
     background-color: v.$white;
     z-index: 8;
     opacity: 0;
     transform: translateX(-100%);
-    transition: transform $transition-speed, opacity 0.35s ease-in-out;
+    transition: transform v.$speed5, opacity v.$speed3;
 
     li {
-      transform: translateX(-40px);
-      transition: all 0.35s 0.15s;
+      transform: translateX(-60px);
+      transition: all v.$speed3 0.05s;
 
       a { 
         color: v.$text-color-dark; font-weight: 600; 
@@ -99,7 +94,19 @@ $home-bg-image: url('../../assets/home-3.jpg');
     }
 
     @media (min-width: $xl-breakpoint) {
+      position: relative;
       background-color: transparent;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: $mobile-nav-h;
+        background-color: v.$white;
+        z-index: -1;
+      }
     }
   }
 }
@@ -119,7 +126,7 @@ $home-bg-image: url('../../assets/home-3.jpg');
     color: v.$text-color-light;
     opacity: 0;
     transform: translateY(10px) scale(0.75);
-    transition: transform 0.25s ease-in-out, opacity 0.5s ease-in-out;
+    transition: transform v.$speed4, opacity v.$speed2, background-color 5s;
 
     &.show-content {
       opacity: 1;
@@ -160,12 +167,12 @@ $home-bg-image: url('../../assets/home-3.jpg');
 
     .upcoming-event {
       opacity: 0;
-      transform: translateY(-10px);
-      transition: all $transition-speed;
+      transform: translateY(-30px) scale(0.95);
+      transition: all 0.25s ease-in-out;
 
       &.upcoming-event-visible {
         opacity: 1;
-        transform: translateY(10);
+        transform: translateY(-10px) scale(1);
       }
     }
 
@@ -175,10 +182,10 @@ $home-bg-image: url('../../assets/home-3.jpg');
       &__inner {
         background-color: v.$primary-color-40;
         color: v.$text-color-dark;
-        border-radius: 4px;
+        border-radius: v.$default-border-radius;
         font-size: 1.9rem;
         font-weight: 600;
-        transition: all $transition-speed;
+        transition: all v.$speed5;
 
         &:hover {
           background-color: v.$text-color-dark;
@@ -193,6 +200,7 @@ $home-bg-image: url('../../assets/home-3.jpg');
 
     @media(min-width: $xl-breakpoint) {
       background-color: transparent;
+      // background: radial-gradient(circle,rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(235, 235, 235, 1) 100%);
       padding: 0
     }
   }
